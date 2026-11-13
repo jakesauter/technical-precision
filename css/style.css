@@ -222,9 +222,9 @@ p { margin: 0 0 1em; }
 .tabs a:focus-visible { outline: 2px solid var(--cyan); outline-offset: -4px; }
 .tabs a[data-tab="quote"]:not([aria-current]) { color: var(--red-ink); }
 
-/* floating back-to-top, above the command line; script shows it once you scroll */
+/* floating back-to-top, bottom left above the command line; script shows it once you scroll */
 .to-top {
-  position: fixed; z-index: 45; right: max(16px, env(safe-area-inset-right, 0px));
+  position: fixed; z-index: 45; left: max(16px, env(safe-area-inset-left, 0px));
   bottom: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px) + 16px);
   width: 56px; height: 56px; padding: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
   background: rgba(5, 21, 50, .92); border: 1px solid var(--frame); color: var(--line); cursor: pointer;
@@ -810,3 +810,7 @@ article.cap:hover svg .o { stroke: var(--cyan); }
   body { padding: 0; }
   .js-tabs main { padding-top: 0; }
 }
+
+/* quote form: email-or-phone hint, and a spam trap people never see */
+.rfq-hint { margin: -4px 0 4px; font-size: 13.5px; color: var(--muted); }
+.rfq-honey { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }

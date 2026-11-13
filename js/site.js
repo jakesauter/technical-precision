@@ -22,8 +22,11 @@ var SITE = {
   postal: '12603',
   mapUrl: 'https://maps.app.goo.gl/DAXfdaKtx8KwUd4W9', // the shop's Google Maps pin; null = search by address
   county: 'Dutchess County',
-  phone: '(845) 380-5648',   // from the owner, 2026-11-13; shown as-is, digits used for the call link
-  email: 'dave@technicalprecisionco.com', // from the owner, 2026-11-13; the quote form opens a ready-to-send email to it
+  phone: '(845) 473-0548',   // confirmed by the owner, 2026-11-13; shown as-is, digits used for the call link
+  email: 'dave@technicalprecisioncorp.com', // from the owner, 2026-11-13; quote requests are emailed here
+  // Quote requests are delivered by FormSubmit (free form-to-email service). The first request after a change of
+  // address sends Dave an 'Activate form' email; requests arrive once he clicks it. null = mail-app only.
+  formEndpoint: 'https://formsubmit.co/ajax/dave@technicalprecisioncorp.com',
   hours: null,               // TO BE ADDED, e.g. 'Mon–Fri 7:00–3:30'
   founded: null,             // TO BE ADDED, e.g. '1985'
   president: 'David Sauter', // set to null to hide
@@ -167,7 +170,7 @@ var SITE = {
     { id: 'parts', label: '3D parts', sheets: ['parts'] },
     { id: 'capabilities', label: 'Capabilities', sheets: ['capabilities', 'process'] },
     { id: 'about', label: 'About', sheets: ['about', 'industries'] },
-    { id: 'quote', label: 'Quote', sheets: ['quote'] }
+    { id: 'quote', label: 'Contact us', sheets: ['quote'] }
   ];
   var tabNav = $('[data-tabs]'), mainEl = $('#main'), tabOf = {}, activeTab = null, pager = null;
   var tabsOn = !!(tabNav && root.classList.contains('js-tabs'));
@@ -401,10 +404,9 @@ var SITE = {
      Request for quote
      ------------------------------------------------------------------ */
   var rfq = $('[data-rfq]'), F = rfq.elements, rfqStatus = $('[data-rfq-status]'), rfqErr = $('[data-rfq-error]');
-  var submitBtn = $('[data-rfq-submit]'), copyBtn = $('[data-rfq-copy]'), intro = $('[data-rfq-intro]');
+  var submitBtn = $('[data-rfq-submit]'), intro = $('[data-rfq-intro]');
   if (!SITE.email) {
     submitBtn.textContent = 'Copy request';
-    copyBtn.hidden = true;
     intro.innerHTML = 'Fill this in and the page writes up your request so you can copy it. The shop\'s email address is ' +
       (SITE.showPlaceholders ? TBD : 'coming soon') + (SITE.phone ? '; until then, call <a href="tel:+' + phoneDigits + '">' + SITE.phone + '</a>.' : '.') +
       ' Nothing is sent from this page.';
@@ -449,23 +451,23 @@ var SITE = {
     }
     var parts = [
       'REQUEST FOR QUOTE: Technical Precision Corp.',
-      block([['Name', f.name.value.trim()], ['Company / boat', f.company.value.trim()], ['Contact', f.contact.value.trim()], ['Industry', f.industry.value]]),
+      block([['Name', f.name.value.trim()], ['Company / boat', f.company.value.trim()], ['Email', f.email.value.trim()], ['Phone', f.phone.value.trim()], ['Industry', f.industry.value]]),
       'Part:\n' + f.part.value.trim(),
       block([['Material', f.material.value.trim()], ['Quantity', f.qty.value.trim()], ['Needed by', f.date.value], ['Processes', ops.join(', ')], ['Finish', f.finish.value.trim()]]),
       f.notes.value.trim() ? 'Notes:\n' + f.notes.value.trim() : '',
-      SITE.email ? '(Drawings, sketches or photos attached.)' : ''
+      ''
     ];
     return parts.filter(Boolean).join('\n\n') + '\n';
   }
   function validate() {
     var bad = [];
-    ['name', 'contact', 'part'].forEach(function (k) {
-      var el = F[k], ok = el.value.trim().length > 0;
-      el.setAttribute('aria-invalid', ok ? 'false' : 'true');
-      if (!ok) bad.push(el);
-    });
+    var email = F.email.value.trim(), phone = F.phone.value.replace(/\D/g, '');
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email), phoneOk = phone.length >= 10;
+    var reachable = (emailOk || !email) && (emailOk || phoneOk);
+    [['name', F.name.value.trim().length > 0], ['email', reachable || emailOk], ['phone', reachable || phoneOk], ['part', F.part.value.trim().length > 0]]
+      .forEach(function (c) { F[c[0]].setAttribute('aria-invalid', c[1] ? 'false' : 'true'); if (!c[1]) bad.push(F[c[0]]); });
     if (bad.length) {
-      rfqErr.hidden = false; rfqErr.textContent = 'Please fill in your name, how to reach you, and what you need made.';
+      rfqErr.hidden = false; rfqErr.textContent = 'Please fill in your name, what you need made, and a valid email or phone number so the shop can get back to you.';
       bad[0].focus(); return false;
     }
     rfqErr.hidden = true; return true;
@@ -485,16 +487,38 @@ var SITE = {
       flash(SITE.phone && !SITE.email ? 'Copied. Call ' + SITE.phone + ' or paste it into a message to the shop.' : 'Request copied.');
     }, function () { flash('Copy failed. Select the fields and copy by hand.'); });
   }
+  // The page sends the request itself through the form service (SITE.formEndpoint). If the customer left an
+  // email it becomes the reply-to, so Dave can just hit Reply.
   rfq.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (!SITE.email) { doCopy(); return; }
+    if (!SITE.email || !SITE.formEndpoint) { doCopy(); return; }
     if (!validate()) return;
-    var subj = 'Quote request: ' + (F.part.value.trim().split('\n')[0].slice(0, 60) || 'part');
-    location.href = 'mailto:' + SITE.email + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(buildRequest());
-    flash('Your email app should open with the request filled in. Attach drawings, then send.');
+    var sent = function () {
+      rfq.reset(); rfqErr.hidden = true;
+      rfqStatus.textContent = 'Sent! The shop will get back to you soon.';
+    };
+    if (F._honey.value) { sent(); return; }                 // a bot filled the hidden field
+    var ops = $$('input[name="ops"]:checked', rfq).map(function (c) { return c.value; }).join(', ');
+    var email = F.email.value.trim();
+    var data = {
+      _subject: 'Quote request: ' + (F.part.value.trim().split('\n')[0].slice(0, 60) || 'part') + ' (' + F.name.value.trim() + ')',
+      _template: 'table', _captcha: 'false',
+      'Name': F.name.value.trim(), 'Reply by email': email || '(none given)', 'Reply by phone': F.phone.value.trim() || '(none given)',
+      'Company or boat': F.company.value.trim(), 'Industry': F.industry.value, 'Part': F.part.value.trim(),
+      'Material': F.material.value.trim(), 'Quantity': F.qty.value.trim(), 'Needed by': F.date.value,
+      'Processes': ops, 'Finish': F.finish.value.trim(), 'Notes': F.notes.value.trim()
+    };
+    if (email) data._replyto = email;
+    submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; rfqStatus.textContent = '';
+    fetch(SITE.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) === 'false') throw new Error(j.message || r.status); }); })
+      .then(sent, function () {
+        rfqErr.hidden = false;
+        rfqErr.innerHTML = 'Sorry, that didn\'t go through. Please try again in a minute, or call <a href="tel:+' + phoneDigits + '">' + SITE.phone + '</a>.';
+      })
+      .then(function () { submitBtn.disabled = false; submitBtn.textContent = 'Send request'; });
   });
-  copyBtn.addEventListener('click', doCopy);
-  ['name', 'contact', 'part'].forEach(function (k) {
+  ['name', 'email', 'phone', 'part'].forEach(function (k) {
     F[k].addEventListener('input', function () { if (F[k].value.trim()) F[k].setAttribute('aria-invalid', 'false'); });
   });
 

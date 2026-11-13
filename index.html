@@ -39,7 +39,7 @@
     <a href="#industries">Industries</a>
   </nav>
   <div class="topbar-cta">
-    <a class="top-phone" data-site-phone-link href="tel:+18453805648"><span class="k">Call</span> <span data-site="phone">(845) 380-5648</span></a>
+    <a class="top-phone" data-site-phone-link href="tel:+18454730548"><span class="k">Call</span> <span data-site="phone">(845) 473-0548</span></a>
     <a class="btn btn-primary btn-sm top-quote" href="#quote"><span class="q-long">Request a&nbsp;</span>quote</a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
       <span></span><span></span><span></span>
@@ -54,7 +54,7 @@
   <a href="#parts" data-tab="parts">3D parts</a>
   <a href="#capabilities" data-tab="capabilities">Capabilities</a>
   <a href="#about" data-tab="about">About</a>
-  <a href="#quote" data-tab="quote">Quote</a>
+  <a href="#quote" data-tab="quote">Contact us</a>
 </nav>
 
 <main id="main">
@@ -494,8 +494,8 @@
       <div><dt>Address</dt><dd><span data-site="addressLine">22 Commerce St., Poughkeepsie, NY 12603</span></dd></div>
       <div><dt>County</dt><dd>Dutchess County, New York</dd></div>
       <div data-site-row="president"><dt>President</dt><dd data-site="president">David Sauter</dd></div>
-      <div><dt>Phone</dt><dd data-site="phone">(845) 380-5648</dd></div>
-      <div><dt>Email</dt><dd data-site="email">dave@technicalprecisionco.com</dd></div>
+      <div><dt>Phone</dt><dd data-site="phone">(845) 473-0548</dd></div>
+      <div><dt>Email</dt><dd data-site="email">dave@technicalprecisioncorp.com</dd></div>
       <div><dt>Hours</dt><dd data-site="hours"><span class="tbd">To be added</span></dd></div>
       <div><dt>Founded</dt><dd data-site="founded"><span class="tbd">To be added</span></dd></div>
       <div><dt>Equipment</dt><dd>CNC machines · punching · press brakes · welding · wide-belt sander</dd></div>
@@ -541,11 +541,11 @@
 </section>
 
 <!-- ============================ 08 QUOTE ============================ -->
-<section class="sheet quote" id="quote" data-sheet="08" data-dwg="TP-700" data-title="Request for quote" data-cmd="PLOT REQUEST-FOR-QUOTE">
+<section class="sheet quote" id="quote" data-sheet="08" data-dwg="TP-700" data-title="Contact us" data-cmd="PLOT REQUEST-FOR-QUOTE">
   <header class="sheet-head">
-    <p class="eyebrow">Sheet 08 · Request for quote</p>
-    <h2>Request a quote.</h2>
-    <p class="lede" data-rfq-intro>Fill this in and it turns into an email you send from your own mail app, so you can attach drawings or photos. Nothing is sent from this page.</p>
+    <p class="eyebrow">Sheet 08 · Contact us</p>
+    <h2>Contact us for a quote.</h2>
+    <p class="lede" data-rfq-intro>Fill this in and press Send. It goes straight to the shop, and they'll get back to you by email or phone, whichever you leave.</p>
   </header>
 
   <div class="quote-grid">
@@ -555,7 +555,11 @@
         <label>Company or boat<input name="company" autocomplete="organization"></label>
       </div>
       <div class="rfq-row two">
-        <label>Your email or phone <span class="req">*</span><input name="contact" autocomplete="email" required></label>
+        <label>Email<input name="email" type="email" autocomplete="email" inputmode="email"></label>
+        <label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="tel"></label>
+      </div>
+      <p class="rfq-hint">Give an email, a phone number, or both: whichever way you'd like the shop to get back to you.</p>
+      <div class="rfq-row two">
         <label>Industry
           <select name="industry">
             <option>Marine</option><option>Automotive</option><option>Aircraft</option><option>Brewery equipment</option><option>Scientific equipment</option><option>Other</option>
@@ -580,21 +584,21 @@
       </fieldset>
       <label>Finish or powder color<input name="finish" placeholder="Bare, grained, black powder coat…"></label>
       <label>Anything else<textarea name="notes" rows="3" placeholder="Where it goes on the boat, what failed, tolerances, how you want to get it…"></textarea></label>
+      <label class="rfq-honey" aria-hidden="true">Leave this empty<input name="_honey" tabindex="-1" autocomplete="off"></label>
       <p class="rfq-error" data-rfq-error role="alert" hidden></p>
       <div class="rfq-actions">
-        <button class="btn btn-primary" type="submit" data-rfq-submit>Open as email</button>
-        <button class="btn btn-ghost" type="button" data-rfq-copy>Copy request</button>
+        <button class="btn btn-primary" type="submit" data-rfq-submit>Send request</button>
         <span class="rfq-status" data-rfq-status role="status"></span>
       </div>
-      <p class="rfq-fine" data-rfq-fine>Attach drawings, sketches or photos to the email before you send it.</p>
+      <p class="rfq-fine" data-rfq-fine>Have drawings or photos? Mention them, and send them when the shop gets back to you.</p>
     </form>
 
     <aside class="contact-card" aria-label="Contact details">
       <p class="cc-title">Technical Precision Corp.</p>
       <dl>
         <div><dt>Shop</dt><dd><a data-site-map href="https://maps.app.goo.gl/DAXfdaKtx8KwUd4W9" target="_blank" rel="noopener"><span data-site="street">22 Commerce St.</span><br><span data-site="cityLine">Poughkeepsie, NY 12603</span></a></dd></div>
-        <div><dt>Phone</dt><dd><a data-site-phone-link href="tel:+18453805648"><span data-site="phone">(845) 380-5648</span></a></dd></div>
-        <div><dt>Email</dt><dd data-site="emailLink"><a href="mailto:dave@technicalprecisionco.com">dave@technicalprecisionco.com</a></dd></div>
+        <div><dt>Phone</dt><dd><a data-site-phone-link href="tel:+18454730548"><span data-site="phone">(845) 473-0548</span></a></dd></div>
+        <div><dt>Email</dt><dd data-site="emailLink"><a href="mailto:dave@technicalprecisioncorp.com">dave@technicalprecisioncorp.com</a></dd></div>
         <div><dt>Hours</dt><dd data-site="hours"><span class="tbd">To be added</span></dd></div>
       </dl>
       <a class="btn btn-ghost btn-sm cc-directions" data-site-map href="https://maps.app.goo.gl/DAXfdaKtx8KwUd4W9" target="_blank" rel="noopener">Get directions</a>
