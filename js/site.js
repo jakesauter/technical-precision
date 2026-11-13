@@ -8,9 +8,9 @@
    - street / city / postal: business directory listings for
      "Technical Precision Corp." (ProcessRegister, NAICSList, ZoomInfo),
      confirmed by the shop's Google Maps pin (mapUrl).
-   - phone: ProcessRegister and ZoomInfo listings. Please confirm.
+   - phone and email: supplied by the owner (2026-11-13).
    - president: ProcessRegister listing ("David Sauter, President").
-   - email, hours, founded: not found online. Directories disagree on the
+   - hours, founded: not found online. Directories disagree on the
      founding year (1985 vs 2000), so it is left blank on purpose.
    Once email is filled in, the quote form opens a ready-to-send email.
    ========================================================================= */
@@ -22,8 +22,8 @@ var SITE = {
   postal: '12603',
   mapUrl: 'https://maps.app.goo.gl/DAXfdaKtx8KwUd4W9', // the shop's Google Maps pin; null = search by address
   county: 'Dutchess County',
-  phone: '(845) 473-0548',   // shown as-is; digits are used for the call link
-  email: null,               // TO BE ADDED, e.g. 'quotes@example.com'
+  phone: '(845) 380-5648',   // from the owner, 2026-11-13; shown as-is, digits used for the call link
+  email: 'dave@technicalprecisionco.com', // from the owner, 2026-11-13; the quote form opens a ready-to-send email to it
   hours: null,               // TO BE ADDED, e.g. 'Mon–Fri 7:00–3:30'
   founded: null,             // TO BE ADDED, e.g. '1985'
   president: 'David Sauter', // set to null to hide
