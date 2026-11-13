@@ -6,7 +6,8 @@
 
    Where each value came from (checked November 2026):
    - street / city / postal: business directory listings for
-     "Technical Precision Corp." (ProcessRegister, NAICSList, ZoomInfo).
+     "Technical Precision Corp." (ProcessRegister, NAICSList, ZoomInfo),
+     confirmed by the shop's Google Maps pin (mapUrl).
    - phone: ProcessRegister and ZoomInfo listings. Please confirm.
    - president: ProcessRegister listing ("David Sauter, President").
    - email, hours, founded: not found online. Directories disagree on the
@@ -19,6 +20,7 @@ var SITE = {
   city: 'Poughkeepsie',
   region: 'NY',
   postal: '12603',
+  mapUrl: 'https://maps.app.goo.gl/DAXfdaKtx8KwUd4W9', // the shop's Google Maps pin; null = search by address
   county: 'Dutchess County',
   phone: '(845) 473-0548',   // shown as-is; digits are used for the call link
   email: null,               // TO BE ADDED, e.g. 'quotes@example.com'
@@ -70,7 +72,7 @@ var SITE = {
     if (phoneDigits) a.href = 'tel:+' + phoneDigits; else a.hidden = true;
   });
   $$('[data-site-map]').forEach(function (a) {
-    a.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(values.addressLine);
+    a.href = SITE.mapUrl || 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(values.addressLine);
   });
   $$('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
@@ -85,6 +87,7 @@ var SITE = {
     if (SITE.phone) ld.telephone = '+' + phoneDigits;
     if (SITE.email) ld.email = SITE.email;
     if (SITE.founded) ld.foundingDate = SITE.founded;
+    if (SITE.mapUrl) ld.hasMap = SITE.mapUrl;
     var s = doc.createElement('script'); s.type = 'application/ld+json'; s.textContent = JSON.stringify(ld);
     doc.head.appendChild(s);
   })();
