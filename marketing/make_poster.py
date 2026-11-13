@@ -45,17 +45,25 @@ for (r0, c0) in [(0, 0), (0, n - 7), (n - 7, 0)]:
 
 cx = cy = quiet + mid
 R = badge_r
-# Boat badge: navy disc, white sailboat, two wave lines across the bottom of the disc
+# Boat badge: navy disc; a motor yacht (cabin, windshield, hardtop) climbing a wave at about 40 degrees, with spray.
 badge = f"""
+<defs><clipPath id="badge-clip"><circle cx="{cx}" cy="{cy}" r="{R - .35}"/></clipPath></defs>
 <circle cx="{cx}" cy="{cy}" r="{R}" fill="{NAVY}"/>
-<circle cx="{cx}" cy="{cy}" r="{R - .35}" fill="none" stroke="#ffffff" stroke-width=".18"/>
-<g transform="translate({cx} {cy}) scale({R / 10})">
-  <path d="M0.3 -6.6 L0.3 2.2 L5.6 2.2 Z" fill="#ffffff"/>
-  <path d="M-0.5 -5.4 L-0.5 2.2 L-4.6 2.2 Z" fill="#cfe6ff"/>
-  <path d="M-6.2 3.2 L6.6 3.2 L4.6 5.6 L-4.6 5.6 Z" fill="#ffffff"/>
-  <path d="M-8.4 7.1 q1.4 -1.1 2.8 0 t2.8 0 t2.8 0 t2.8 0 t2.8 0 t2.8 0" fill="none" stroke="{WAVE}" stroke-width=".9" stroke-linecap="round"/>
-  <path d="M-7 8.9 q1.4 -1.1 2.8 0 t2.8 0 t2.8 0 t2.8 0 t2.8 0" fill="none" stroke="#ffffff" stroke-width=".7" stroke-linecap="round" opacity=".7"/>
-</g>"""
+<g clip-path="url(#badge-clip)"><g transform="translate({cx} {cy}) scale({R / 10})">
+  <path d="M-11 4 C-7 1.5 -3.5 5.5 0 3.2 C3.4 1 5.6 -1.8 7.2 -5.2 C8.6 -3 10 -1 11 0 L11 11 L-11 11 Z" fill="{CYAN}"/>
+  <path d="M-11 6.6 C-7 4.4 -3.4 8 0.4 5.8 C3.6 4 6.2 1.6 8.4 -1.4 L11 2 L11 11 L-11 11 Z" fill="{WAVE}" opacity=".55"/>
+  <g transform="translate(0.2 0.1) rotate(-40) scale(.86)">
+    <path d="M-7.8 -1.2 L9.4 -1.2 Q7.6 1.7 4.4 1.9 L-7.4 1.9 Z" fill="#ffffff"/>
+    <path d="M-7.5 0.6 L6.9 0.6" stroke="{WAVE}" stroke-width=".45"/>
+    <path d="M-5.8 -1.2 L-5.2 -3.7 L1.8 -3.7 L5.0 -1.2 Z" fill="#ffffff"/>
+    <path d="M-4.6 -3.0 L1.4 -3.0 L3.4 -1.85 L-4.8 -1.85 Z" fill="{NAVY}"/>
+    <path d="M-4.4 -3.7 L-3.9 -5.0 L0.8 -5.0 L1.5 -3.7 Z" fill="#ffffff"/>
+    <path d="M-1.6 -5.0 L-1.1 -6.5" stroke="#ffffff" stroke-width=".4" stroke-linecap="round"/>
+  </g>
+  <path d="M-7.8 3.4 q2.2 -1.2 4.4 .2 M-9.6 5.2 q2.6 -1.4 5.2 .2" fill="none" stroke="#ffffff" stroke-width=".55" stroke-linecap="round" opacity=".9"/>
+  <path d="M5.6 -6.2 q1 -1.4 2.6 -1.2 M6.6 -4.4 q1.2 -.8 2.4 -.2" fill="none" stroke="#ffffff" stroke-width=".5" stroke-linecap="round" opacity=".85"/>
+</g></g>
+<circle cx="{cx}" cy="{cy}" r="{R - .35}" fill="none" stroke="#ffffff" stroke-width=".18"/>"""
 
 qr_svg = f"""<svg class="qr" viewBox="0 0 {size} {size}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR code for tepco.us.com">
 <rect width="{size}" height="{size}" rx="2" fill="#ffffff"/>

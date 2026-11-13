@@ -170,7 +170,8 @@ var SITE = {
     { id: 'parts', label: '3D parts', sheets: ['parts'] },
     { id: 'capabilities', label: 'Capabilities', sheets: ['capabilities', 'process'] },
     { id: 'about', label: 'About', sheets: ['about', 'industries'] },
-    { id: 'quote', label: 'Contact us', sheets: ['quote'] }
+    { id: 'quote', label: 'Contact us', sheets: ['quote'] },
+    { id: 'poster', label: 'Poster', sheets: ['poster'] }
   ];
   var tabNav = $('[data-tabs]'), mainEl = $('#main'), tabOf = {}, activeTab = null, pager = null;
   var tabsOn = !!(tabNav && root.classList.contains('js-tabs'));
@@ -553,6 +554,22 @@ var SITE = {
       vIO.observe(viewerRoot);
     } else startViewer();
   }
+
+  /* ------------------------------------------------------------------
+     Poster sheet: print the PDF, or share the poster link (phone share sheet, else copy)
+     ------------------------------------------------------------------ */
+  var posterPrint = $('[data-poster-print]'), posterShare = $('[data-poster-share]');
+  if (posterPrint) posterPrint.addEventListener('click', function () {
+    var w = window.open('marketing/poster.pdf', '_blank');
+    if (w) { try { w.addEventListener('load', function () { w.print(); }); } catch (e) { /* the PDF viewer has its own print button */ } }
+  });
+  if (posterShare) posterShare.addEventListener('click', function () {
+    var url = new URL('marketing/poster.pdf', location.href).href;
+    if (navigator.share) { navigator.share({ title: 'Technical Precision poster', url: url }).catch(function () {}); return; }
+    (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(
+      function () { posterShare.textContent = 'Link copied'; setTimeout(function () { posterShare.textContent = 'Share'; }, 2500); },
+      function () { location.href = url; });
+  });
 
   /* ------------------------------------------------------------------
      Floating back-to-top: appears once you are a screen down, steps aside

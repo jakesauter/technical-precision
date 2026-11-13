@@ -814,3 +814,12 @@ article.cap:hover svg .o { stroke: var(--cyan); }
 /* quote form: email-or-phone hint, and a spam trap people never see */
 .rfq-hint { margin: -4px 0 4px; font-size: 13.5px; color: var(--muted); }
 .rfq-honey { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* poster sheet */
+.poster-grid { display: grid; grid-template-columns: minmax(0, 420px) 1fr; gap: 28px; align-items: start; margin-top: 18px; }
+.poster-preview { display: block; border: 1px solid var(--frame); box-shadow: 0 10px 30px rgba(0,0,0,.35); background: #fff; }
+.poster-preview img { display: block; width: 100%; height: auto; }
+.poster-actions { display: grid; gap: 12px; align-content: start; max-width: 320px; }
+.poster-actions .btn { text-align: center; }
+.poster-note { color: var(--muted); font-size: 15px; margin: 4px 0 0; }
+@media (max-width: 760px) { .poster-grid { grid-template-columns: 1fr; } .poster-actions { max-width: none; } }
