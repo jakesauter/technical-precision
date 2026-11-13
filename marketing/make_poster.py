@@ -45,23 +45,30 @@ for (r0, c0) in [(0, 0), (0, n - 7), (n - 7, 0)]:
 
 cx = cy = quiet + mid
 R = badge_r
-# Boat badge: navy disc; a motor yacht (cabin, windshield, hardtop) climbing a wave at about 40 degrees, with spray.
+# Boat badge: navy disc with a line-drawn motor yacht facing left, bow raised about 25 degrees as it rides up a wave.
+LW = .62   # line weight, in the badge's 20-unit drawing space
 badge = f"""
 <defs><clipPath id="badge-clip"><circle cx="{cx}" cy="{cy}" r="{R - .35}"/></clipPath></defs>
 <circle cx="{cx}" cy="{cy}" r="{R}" fill="{NAVY}"/>
-<g clip-path="url(#badge-clip)"><g transform="translate({cx} {cy}) scale({R / 10})">
-  <path d="M-11 4 C-7 1.5 -3.5 5.5 0 3.2 C3.4 1 5.6 -1.8 7.2 -5.2 C8.6 -3 10 -1 11 0 L11 11 L-11 11 Z" fill="{CYAN}"/>
-  <path d="M-11 6.6 C-7 4.4 -3.4 8 0.4 5.8 C3.6 4 6.2 1.6 8.4 -1.4 L11 2 L11 11 L-11 11 Z" fill="{WAVE}" opacity=".55"/>
-  <g transform="translate(0.2 0.1) rotate(-40) scale(.86)">
-    <path d="M-7.8 -1.2 L9.4 -1.2 Q7.6 1.7 4.4 1.9 L-7.4 1.9 Z" fill="#ffffff"/>
-    <path d="M-7.5 0.6 L6.9 0.6" stroke="{WAVE}" stroke-width=".45"/>
-    <path d="M-5.8 -1.2 L-5.2 -3.7 L1.8 -3.7 L5.0 -1.2 Z" fill="#ffffff"/>
-    <path d="M-4.6 -3.0 L1.4 -3.0 L3.4 -1.85 L-4.8 -1.85 Z" fill="{NAVY}"/>
-    <path d="M-4.4 -3.7 L-3.9 -5.0 L0.8 -5.0 L1.5 -3.7 Z" fill="#ffffff"/>
-    <path d="M-1.6 -5.0 L-1.1 -6.5" stroke="#ffffff" stroke-width=".4" stroke-linecap="round"/>
+<g clip-path="url(#badge-clip)" fill="none" stroke-linecap="round" stroke-linejoin="round"><g transform="translate({cx} {cy}) scale({R / 10})">
+  <g stroke="{WAVE}" stroke-width="{LW}">
+    <path d="M11 5.0 C7.4 4.9 4 4.1 0.4 2.2 C-2.6 0.6 -4.8 -0.6 -6.8 0.2 C-8.4 0.9 -8.8 2.6 -7.6 3.2"/>
+    <path d="M11 7.4 C6.4 7.3 1.6 6 -2.4 4.4 C-5.4 3.2 -8 3.2 -11 5.2" opacity=".8"/>
+    <path d="M11 9.7 C5.4 9.6 -0.6 8.6 -5.4 7.6 C-7.6 7.2 -9.6 7.4 -11 8" opacity=".55"/>
   </g>
-  <path d="M-7.8 3.4 q2.2 -1.2 4.4 .2 M-9.6 5.2 q2.6 -1.4 5.2 .2" fill="none" stroke="#ffffff" stroke-width=".55" stroke-linecap="round" opacity=".9"/>
-  <path d="M5.6 -6.2 q1 -1.4 2.6 -1.2 M6.6 -4.4 q1.2 -.8 2.4 -.2" fill="none" stroke="#ffffff" stroke-width=".5" stroke-linecap="round" opacity=".85"/>
+  <g transform="translate(0.4 0.3) rotate(25) scale(.7)" stroke="#ffffff" stroke-width="{LW / .7:.2f}">
+    <path d="M-9.4 -0.4 L8.2 0 L8.0 2.5 L-3.8 2.5 Q-7.6 2.1 -9.4 -0.4 Z" fill="{NAVY}"/>
+    <path d="M-7.2 1.25 L8.1 1.35" stroke="{WAVE}"/>
+    <path d="M-4.4 -0.3 L-2.6 -2.7 L5.4 -2.7 L6.4 -0.05" fill="{NAVY}"/>
+    <path d="M-2.1 -1.75 L-0.2 -1.75 M0.8 -1.75 L2.6 -1.75 M3.6 -1.75 L5.0 -1.75" stroke="{WAVE}"/>
+    <path d="M-1.4 -2.7 L-0.4 -4.3 L4.2 -4.3 L4.6 -2.7" fill="{NAVY}"/>
+    <path d="M-1.2 -4.3 L5.6 -4.3"/>
+    <path d="M2.0 -4.3 L2.6 -6.0 M1.7 -6.0 L3.5 -6.0"/>
+  </g>
+  <g stroke="#ffffff" stroke-width="{LW * .85}">
+    <path d="M-6.6 -2.6 q-1.6 -.6 -3 .2 M-6.2 -3.8 q-1.2 -1.2 -2.6 -1.2 M-5.2 -4.6 q-.4 -1.2 -1.2 -1.9"/>
+    <path d="M5.4 3.6 Q7 4.4 9.4 4.2 M6.2 2.6 Q7.6 3 9 2.8" stroke="{WAVE}"/>
+  </g>
 </g></g>
 <circle cx="{cx}" cy="{cy}" r="{R - .35}" fill="none" stroke="#ffffff" stroke-width=".18"/>"""
 
