@@ -532,11 +532,43 @@ var SITE = {
   }
 
   /* ------------------------------------------------------------------
+     Floating back-to-top: appears once you are a screen down, steps aside
+     when the 3D viewer's zoom buttons pass underneath it
+     ------------------------------------------------------------------ */
+  var toTop = $('[data-to-top]'), zoomBox = $('.vw-zoom'), topPending = false;
+  function overlaps(a, b) { return a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom; }
+  function paintToTop() {
+    topPending = false;
+    var far = window.scrollY > Math.max(480, window.innerHeight * 0.75);
+    if (far && zoomBox && zoomBox.offsetParent) far = !overlaps(toTop.getBoundingClientRect(), zoomBox.getBoundingClientRect());
+    toTop.classList.toggle('is-shown', far);
+    toTop.tabIndex = far ? 0 : -1;
+  }
+  if (toTop) {
+    window.addEventListener('scroll', function () { if (!topPending) { topPending = true; requestAnimationFrame(paintToTop); } }, { passive: true });
+    window.addEventListener('resize', paintToTop);
+    toTop.addEventListener('click', function (e) {
+      window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+      // keyboard users land on the open tab, not back on a button that is about to hide
+      if (e.detail === 0) { var tab = $('[data-tabs] a[aria-current="page"]') || $('.brand'); if (tab) tab.focus({ preventScroll: true }); }
+    });
+    paintToTop();
+  }
+
+  /* ------------------------------------------------------------------
      Open the first tab (or the one in the address, e.g. #quote)
      ------------------------------------------------------------------ */
   if (tabsOn) {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';  // a remembered spot belongs to another tab
     var startEl = location.hash.length > 1 ? doc.getElementById(location.hash.slice(1)) : null;
     if (tabFor(startEl)) go(location.hash); else go('#top', false);
+    // The browser's own jump to #id can land after ours; for a tab's first sheet the top of the page is the spot,
+    // so the Previous / Next buttons above it show.
+    if (startEl && tabFor(startEl) && tabFor(startEl).els[0] === startEl) {
+      window.addEventListener('load', function () {
+        if (window.scrollY < 200) instantly(function (b) { window.scrollTo({ top: 0, left: 0, behavior: b }); });
+      });
+    }
     mainEl.classList.add('tabs-on');
     root.classList.add('tabs-ready');
     stripFade();

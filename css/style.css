@@ -156,6 +156,22 @@ p { margin: 0 0 1em; }
 .tabs a:focus-visible { outline: 2px solid var(--cyan); outline-offset: -4px; }
 .tabs a[data-tab="quote"]:not([aria-current]) { color: var(--red-ink); }
 
+/* floating back-to-top, above the command line; script shows it once you scroll */
+.to-top {
+  position: fixed; z-index: 45; right: max(16px, env(safe-area-inset-right, 0px));
+  bottom: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px) + 16px);
+  width: 56px; height: 56px; padding: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+  background: rgba(5, 21, 50, .92); border: 1px solid var(--frame); color: var(--line); cursor: pointer;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity .2s, transform .2s, border-color .15s, color .15s;
+}
+.js .to-top { display: flex; }
+.to-top.is-shown { opacity: 1; transform: none; pointer-events: auto; }
+.to-top:hover, .to-top:focus-visible { border-color: var(--cyan); color: var(--cyan); outline: none; }
+.to-top svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: square; }
+.to-top span { font: 600 9.5px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; }
+@media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
+
 /* previous / next sheet, under the open tab */
 .sheet-pager {
   max-width: 1440px; margin: 0 auto; padding: 8px var(--gutter) 28px;
@@ -721,7 +737,7 @@ article.cap:hover svg .o { stroke: var(--cyan); }
   .sheet-pager a { font-size: 16px; padding: 10px 12px; }
 }
 @media print {
-  .topbar, .cad-bar, .vw-toolbar, .vw-zoom, .tabs, .sheet-pager { display: none !important; }
+  .topbar, .cad-bar, .vw-toolbar, .vw-zoom, .tabs, .sheet-pager, .to-top { display: none !important; }
   body { padding: 0; }
   .js-tabs main { padding-top: 0; }
 }
