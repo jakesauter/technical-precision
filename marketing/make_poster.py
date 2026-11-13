@@ -45,7 +45,7 @@ for (r0, c0) in [(0, 0), (0, n - 7), (n - 7, 0)]:
 
 cx = cy = quiet + mid
 R = badge_r
-# Boat badge: navy disc; a white motor yacht facing left, bow raised about 25 degrees as it rides up a wave, with spray.
+# Boat badge: navy disc; a white motor yacht facing left, bow raised about 25 degrees as it rides up a wave (white foam on the crest, wake behind).
 badge = f"""
 <defs><clipPath id="badge-clip"><circle cx="{cx}" cy="{cy}" r="{R - .35}"/></clipPath></defs>
 <circle cx="{cx}" cy="{cy}" r="{R}" fill="{NAVY}"/>
@@ -65,7 +65,7 @@ badge = f"""
     <path d="M2.0 -4.3 L2.6 -6.0 M1.7 -6.0 L3.5 -6.0" stroke="#ffffff" stroke-width=".55" stroke-linecap="round" fill="none"/>
   </g>
   <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width=".55" opacity=".9">
-    <path d="M-6.6 -2.6 q-1.6 -.6 -3 .2 M-6.2 -3.8 q-1.2 -1.2 -2.6 -1.2 M-5.2 -4.6 q-.4 -1.2 -1.2 -1.9"/>
+    <path d="M-1.2 1.2 C-2.9 0.4 -4.8 -0.6 -6.8 0.2 C-8 0.7 -8.9 1.6 -9.8 2.2"/>
     <path d="M5.4 3.7 Q7 4.5 9.6 4.3 M6.2 2.7 Q7.6 3.1 9.2 2.9"/>
   </g>
 </g></g>
