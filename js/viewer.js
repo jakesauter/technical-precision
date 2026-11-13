@@ -1087,8 +1087,8 @@
     top: { theta: 0, phi: 0.0006, name: 'Top' },
     bottom: { theta: 0, phi: PI - 0.0006, name: 'Bottom' },
     iso: { theta: PI / 4, phi: Math.acos(1 / Math.sqrt(3)), name: 'SE Isometric' },
-    // starting view: from the south-east corner, looking down at 45 degrees
-    start: { theta: PI / 4, phi: PI / 4, name: 'SE 45°' }
+    // starting view: from the south-east corner, looking down at 30 degrees (phi is measured from straight above)
+    start: { theta: PI / 4, phi: PI / 3, name: 'SE 30°' }
   };
 
   GL.prototype.view = function (key) {
