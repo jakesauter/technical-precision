@@ -203,9 +203,10 @@ var SITE = {
       });
     });
     var prev = TABS[t.i - 1], next = TABS[t.i + 1];
-    pager.innerHTML =
+    var pagerHtml =
       (prev ? '<a class="pg-prev" href="#' + prev.id + '"><small>&larr; Previous sheet</small>' + prev.label + '</a>' : '') +
       (next ? '<a class="pg-next" href="#' + next.id + '"><small>Next sheet &rarr;</small>' + next.label + '</a>' : '');
+    pager.forEach(function (p) { p.innerHTML = pagerHtml; });
     setSheet(t.els[0]);
     return true;
   }
@@ -227,8 +228,14 @@ var SITE = {
     return true;
   }
   if (tabsOn) {
-    pager = doc.createElement('nav'); pager.className = 'sheet-pager'; pager.setAttribute('aria-label', 'Previous and next sheet');
-    mainEl.appendChild(pager);
+    // the same Previous / Next sheet buttons above and below the open tab
+    pager = ['is-top', 'is-bottom'].map(function (where) {
+      var p = doc.createElement('nav'); p.className = 'sheet-pager ' + where;
+      p.setAttribute('aria-label', (where === 'is-top' ? 'Top' : 'Bottom') + ' previous and next sheet');
+      return p;
+    });
+    mainEl.insertBefore(pager[0], mainEl.firstChild);
+    mainEl.appendChild(pager[1]);
     tabNav.addEventListener('scroll', stripFade, { passive: true });
     window.addEventListener('resize', stripFade);
     doc.addEventListener('click', function (e) {
