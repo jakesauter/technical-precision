@@ -10,9 +10,8 @@
      confirmed by the shop's Google Maps pin (mapUrl).
    - phone and email: supplied by the owner (2026-11-13).
    - president: ProcessRegister listing ("David Sauter, President").
-   - hours, founded: not found online. Directories disagree on the
-     founding year (1985 vs 2000), so it is left blank on purpose.
-   Once email is filled in, the quote form opens a ready-to-send email.
+   - hours and founding year: supplied by the owner (2026-11-13).
+     Founded shows on the About tab only; hours on About and Contact us.
    ========================================================================= */
 var SITE = {
   name: 'Technical Precision Corp.',
@@ -27,8 +26,8 @@ var SITE = {
   // Quote requests go to the owner's private form relay (Cloudflare worker "site-forms"), which emails them from
   // forms@tepco.us.com to the shop. Recipient addresses are kept in the relay, not here.
   formEndpoint: 'https://site-forms.jake-sauter3.workers.dev/send?site=tepco',
-  hours: null,               // TO BE ADDED, e.g. 'Mon–Fri 7:00–3:30'
-  founded: null,             // TO BE ADDED, e.g. '1985'
+  hours: 'Monday–Friday, 7 AM – 4 PM',
+  founded: '1985',
   president: 'David Sauter', // set to null to hide
   showPlaceholders: true
 };
@@ -91,6 +90,7 @@ var SITE = {
     if (SITE.email) ld.email = SITE.email;
     if (SITE.founded) ld.foundingDate = SITE.founded;
     if (SITE.mapUrl) ld.hasMap = SITE.mapUrl;
+    ld.openingHours = 'Mo-Fr 07:00-16:00';
     var s = doc.createElement('script'); s.type = 'application/ld+json'; s.textContent = JSON.stringify(ld);
     doc.head.appendChild(s);
   })();
