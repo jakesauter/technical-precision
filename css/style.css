@@ -254,6 +254,9 @@ p { margin: 0 0 1em; }
 .sheet-pager.is-top { padding: 14px var(--gutter) 0; }
 .sheet-pager.is-top a { padding: 8px 14px; font-size: 16px; }
 .js-tabs .sheet.tab-first { padding-top: clamp(28px, 4vw, 56px) !important; }
+/* A link to a tab lands at the very top of the page, above its Previous / Next buttons.
+   Safari keeps re-applying its jump to #id while the page settles, so the margin does it, not script. */
+.js-tabs .sheet.tab-first { scroll-margin-top: 100vh; }
 
 /* =====================================================================
    Sheets (each section is a drawing sheet)
@@ -450,7 +453,7 @@ figcaption.cap { font: 500 12px/1.5 var(--f-mono); color: var(--muted); margin-t
 .vw-port canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .vw-label { position: absolute; top: 9px; left: 11px; font: 500 11.5px var(--f-mono); color: var(--muted); pointer-events: none; max-width: calc(100% - 110px); }
 .vw-cube-wrap { position: absolute; top: 12px; right: 14px; width: 74px; height: 74px; display: grid; place-items: center; }
-.vw-cube { width: 50px; height: 50px; position: relative; transform-style: preserve-3d; }
+.vw-cube { width: 50px; height: 50px; position: relative; }  /* faces are placed by script (flat 2D transforms) */
 .vw-face {
   position: absolute; inset: 0; width: 50px; height: 50px; padding: 0; display: grid; place-items: center; cursor: pointer;
   background: rgba(17, 68, 140, .92); border: 1px solid rgba(234, 242, 255, .7); color: var(--line);

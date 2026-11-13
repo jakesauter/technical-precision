@@ -886,6 +886,7 @@
 
     // overlays
     this.cube = this.port.querySelector('[data-vw="cube"]');
+    this.cubeFaces = this.cube ? Array.prototype.slice.call(this.cube.querySelectorAll('[data-face]')) : [];
     this.ucs = this.port.querySelector('[data-vw="ucs"]');
     this.dimEls = Array.prototype.slice.call(this.port.querySelectorAll('[data-vw="dim"]'));
 
@@ -1155,13 +1156,35 @@
     this.syncOverlays(cam);
   };
 
+  // View cube faces in world axes: n = outward normal (also the centre, times the half size),
+  // u = the face's "right" and w = its "down" as its label reads, so the text sits upright like CAD view cubes.
+  var CUBE_FACES = {
+    front:  { n: [0, 0, 1],  u: [1, 0, 0],  w: [0, -1, 0] },
+    back:   { n: [0, 0, -1], u: [-1, 0, 0], w: [0, -1, 0] },
+    right:  { n: [1, 0, 0],  u: [0, 0, -1], w: [0, -1, 0] },
+    left:   { n: [-1, 0, 0], u: [0, 0, 1],  w: [0, -1, 0] },
+    top:    { n: [0, 1, 0],  u: [1, 0, 0],  w: [0, 0, 1] },
+    bottom: { n: [0, -1, 0], u: [1, 0, 0],  w: [0, 0, -1] }
+  };
+
   GL.prototype.syncOverlays = function (cam) {
     var T = this.T, w = this.port.clientWidth, h = this.port.clientHeight;
-    // view cube: rotate to match the camera
+    // view cube: each face facing the camera gets a flat 2D transform (no CSS 3D, which Safari can draw
+    // flattened); faces turned away are hidden, so they can't be clicked through the cube
     if (this.cube) {
       var e = cam.matrixWorldInverse.elements;
-      var m = [e[0], -e[1], e[2], 0, -e[4], e[5], -e[6], 0, e[8], -e[9], e[10], 0, 0, 0, 0, 1];
-      this.cube.style.transform = 'matrix3d(' + m.map(function (x) { return Math.abs(x) < 1e-10 ? 0 : x.toFixed(6); }).join(',') + ')';
+      // world direction -> screen (x right, y down), rotation only, like an orthographic view
+      var scr = function (v) { return [e[0] * v[0] + e[4] * v[1] + e[8] * v[2], -(e[1] * v[0] + e[5] * v[1] + e[9] * v[2])]; };
+      var depth = function (v) { return e[2] * v[0] + e[6] * v[1] + e[10] * v[2]; };
+      var r = 25, fmt = function (x) { return Math.abs(x) < 1e-6 ? 0 : +x.toFixed(5); };
+      this.cubeFaces.forEach(function (el) {
+        var f = CUBE_FACES[el.getAttribute('data-face')];
+        var show = depth(f.n) > 0.02;
+        el.style.visibility = show ? '' : 'hidden';
+        if (!show) return;
+        var u = scr(f.u), w = scr(f.w), c = scr(f.n);
+        el.style.transform = 'matrix(' + [u[0], u[1], w[0], w[1], c[0] * r, c[1] * r].map(fmt).join(',') + ')';
+      });
     }
     // UCS icon
     if (this.ucs) {
