@@ -237,6 +237,20 @@ p { margin: 0 0 1em; }
 .to-top svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: square; }
 .to-top span { font: 600 9.5px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; }
 @media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
+.scroll-cue {
+  position: fixed; z-index: 44; left: 50%; bottom: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px) + 14px);
+  transform: translate(-50%, 10px); display: none; flex-direction: column; align-items: center; gap: 0;
+  padding: 8px 16px 6px; background: rgba(5, 21, 50, .88); border: 1px solid var(--frame); border-radius: 999px; color: var(--cyan);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); cursor: pointer;
+  opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s;
+}
+.js .scroll-cue { display: flex; }
+.scroll-cue.is-shown { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.scroll-cue span { font: 600 10.5px/1 var(--f-mono); letter-spacing: .18em; text-transform: uppercase; }
+.scroll-cue svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; animation: cue-bob 1.6s ease-in-out infinite; }
+@keyframes cue-bob { 50% { transform: translateY(4px); } }
+@media (prefers-reduced-motion: reduce) { .scroll-cue { transition: none; } .scroll-cue svg { animation: none; } }
+@media print { .scroll-cue { display: none !important; } }
 
 /* previous / next sheet, under the open tab */
 .sheet-pager {
@@ -252,6 +266,7 @@ p { margin: 0 0 1em; }
 .sheet-pager a:hover { border-color: var(--cyan); }
 .sheet-pager .pg-next { margin-left: auto; text-align: right; }
 .sheet-pager.is-top { padding: 14px var(--gutter) 0; }
+.sheet-pager[hidden] { display: none; }
 .sheet-pager.is-top a { padding: 8px 14px; font-size: 16px; }
 .js-tabs .sheet.tab-first { padding-top: clamp(28px, 4vw, 56px) !important; }
 /* A link to a tab lands at the very top of the page, above its Previous / Next buttons.

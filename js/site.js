@@ -211,6 +211,8 @@ var SITE = {
       (prev ? '<a class="pg-prev" href="#' + prev.id + '"><small>&larr; Previous sheet</small>' + prev.label + '</a>' : '') +
       (next ? '<a class="pg-next" href="#' + next.id + '"><small>Next sheet &rarr;</small>' + next.label + '</a>' : '');
     pager.forEach(function (p) { p.innerHTML = pagerHtml; });
+    pager[0].hidden = !prev;   // no top pager on the first tab: the headline starts the page
+    if (window.__paintScrollCue) window.__paintScrollCue();
     setSheet(t.els[0]);
     return true;
   }
@@ -575,6 +577,20 @@ var SITE = {
      Floating back-to-top: appears once you are a screen down, steps aside
      when the 3D viewer's zoom buttons pass underneath it
      ------------------------------------------------------------------ */
+  // "Scroll" hint at the bottom of the Overview page, until the visitor starts scrolling.
+  (function () {
+    var cue = $('[data-scroll-cue]'), hero = $('#top'); if (!cue || !hero) return;
+    var paint = function () {
+      var onHero = !hero.classList.contains('tab-off') && hero.getBoundingClientRect().height > 0;
+      var more = doc.documentElement.scrollHeight - window.innerHeight > 200;
+      cue.classList.toggle('is-shown', onHero && more && window.scrollY < 40);
+    };
+    window.__paintScrollCue = paint;
+    window.addEventListener('scroll', paint, { passive: true }); window.addEventListener('resize', paint);
+    cue.addEventListener('click', function () { window.scrollBy({ top: window.innerHeight * 0.75, behavior: reduced ? 'auto' : 'smooth' }); });
+    setTimeout(paint, 400);
+  })();
+
   var toTop = $('[data-to-top]'), zoomBox = $('.vw-zoom'), topPending = false;
   function overlaps(a, b) { return a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom; }
   function paintToTop() {
