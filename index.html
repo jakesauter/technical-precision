@@ -12,9 +12,8 @@
 <meta property="og:description" content="Boat parts machined from billet, punched, bent, welded and powder coated in Poughkeepsie, New York.">
 <meta property="og:image" content="https://jakesauter.github.io/technical-precision/img/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/barlow-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/barlow-condensed-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <script>(function(r){r.classList.add('js','js-tabs');setTimeout(function(){if(!r.classList.contains('tabs-ready'))r.classList.remove('js-tabs')},4000)})(document.documentElement)</script>
 </head>
@@ -23,13 +22,13 @@
 
 <!-- ============================ TOP BAR ============================ -->
 <header class="topbar">
-  <a class="brand" href="#top" aria-label="Technical Precision, back to top">
+  <a class="brand" href="#top">
     <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
       <rect x="1.5" y="1.5" width="37" height="37" fill="none" stroke="currentColor" stroke-width="1.5"/>
       <path d="M8 12h14M15 12v17M22 29V12h6.5a4.5 4.5 0 0 1 0 9H22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/>
       <path d="M32 33h-5M32 33v-5" stroke="var(--cyan)" stroke-width="1.2"/>
     </svg>
-    <span class="brand-text"><strong>Technical Precision</strong><small>Poughkeepsie, NY</small></span>
+    <span class="brand-text"><strong>Technical Precision</strong><small>Poughkeepsie, NY</small></span><span class="sr-only">, back to top</span>
   </a>
   <nav class="nav" id="nav" aria-label="Sections">
     <a href="#marine">Marine</a>
@@ -647,6 +646,6 @@
   </div>
 </div>
 
-<script src="js/site.js"></script>
+<script src="js/site.js" defer></script>
 </body>
 </html>

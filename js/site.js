@@ -552,7 +552,7 @@ var SITE = {
       // keyboard users land on the open tab, not back on a button that is about to hide
       if (e.detail === 0) { var tab = $('[data-tabs] a[aria-current="page"]') || $('.brand'); if (tab) tab.focus({ preventScroll: true }); }
     });
-    paintToTop();
+    requestAnimationFrame(paintToTop);  // after the first layout, so it doesn't force one
   }
 
   /* ------------------------------------------------------------------
