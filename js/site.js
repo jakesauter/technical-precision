@@ -158,6 +158,93 @@ var SITE = {
   }
 
   /* ------------------------------------------------------------------
+     Sheet tabs: one group of sheets on screen at a time.
+     Links to any sheet (#quote, #process...) open its tab.
+     ------------------------------------------------------------------ */
+  var TABS = [
+    { id: 'top', label: 'Overview', sheets: ['top'] },
+    { id: 'marine', label: 'Marine', sheets: ['marine'] },
+    { id: 'parts', label: '3D parts', sheets: ['parts'] },
+    { id: 'capabilities', label: 'Capabilities', sheets: ['capabilities', 'process'] },
+    { id: 'about', label: 'About', sheets: ['about', 'industries'] },
+    { id: 'quote', label: 'Quote', sheets: ['quote'] }
+  ];
+  var tabNav = $('[data-tabs]'), mainEl = $('#main'), tabOf = {}, activeTab = null, pager = null;
+  var tabsOn = !!(tabNav && root.classList.contains('js-tabs'));
+  TABS.forEach(function (t, i) {
+    t.i = i;
+    t.els = t.sheets.map(function (id) { return doc.getElementById(id); }).filter(Boolean);
+    t.els.forEach(function (el) { tabOf[el.id] = t; });
+  });
+  function tabFor(el) { var sh = el && el.closest ? el.closest('.sheet') : null; return sh ? tabOf[sh.id] || null : null; }
+  // Run a scroll with smooth scrolling off. Reading scrollTop makes the browser apply
+  // the jump now; smooth scrolling comes back on the next frame.
+  function instantly(fn) {
+    root.style.scrollBehavior = 'auto'; fn('instant'); void root.scrollTop;
+    requestAnimationFrame(function () { root.style.scrollBehavior = ''; });
+  }
+  function stripFade() { tabNav.classList.toggle('more-right', tabNav.scrollLeft + tabNav.clientWidth < tabNav.scrollWidth - 4); }
+  function showTab(t) {
+    if (t === activeTab) return false;
+    activeTab = t;
+    sheets.forEach(function (sh) {
+      var on = tabOf[sh.id] === t;
+      sh.classList.toggle('tab-off', !on);
+      sh.classList.toggle('tab-first', on && sh === t.els[0]);
+    });
+    $$('a', tabNav).forEach(function (a) {
+      if (a.getAttribute('data-tab') !== t.id) { a.removeAttribute('aria-current'); return; }
+      a.setAttribute('aria-current', 'page');
+      // keep the open tab visible in the strip (phones), after the page jump
+      requestAnimationFrame(function () {
+        if (tabNav.scrollWidth <= tabNav.clientWidth) return;
+        var left = a.offsetLeft - (tabNav.clientWidth - a.offsetWidth) / 2;
+        tabNav.scrollTo({ left: Math.max(0, left), behavior: reduced ? 'auto' : 'smooth' });
+      });
+    });
+    var prev = TABS[t.i - 1], next = TABS[t.i + 1];
+    pager.innerHTML =
+      (prev ? '<a class="pg-prev" href="#' + prev.id + '"><small>&larr; Previous sheet</small>' + prev.label + '</a>' : '') +
+      (next ? '<a class="pg-next" href="#' + next.id + '"><small>Next sheet &rarr;</small>' + next.label + '</a>' : '');
+    setSheet(t.els[0]);
+    return true;
+  }
+  // Open the tab holding #id and scroll to it. Returns false if #id is not in a sheet.
+  function go(hash, scroll) {
+    if (!tabsOn) {
+      var plain = doc.getElementById((hash || '').replace(/^#/, ''));
+      if (plain && scroll !== false) plain.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+      return !!plain;
+    }
+    var el = doc.getElementById((hash || '').replace(/^#/, '') || 'top'), t = tabFor(el);
+    if (!t) return false;
+    var changed = showTab(t);
+    if (scroll === false) return true;
+    var atTop = el === t.els[0];
+    if (changed) instantly(function (b) { if (atTop) window.scrollTo({ top: 0, left: 0, behavior: b }); else el.scrollIntoView({ block: 'start', behavior: b }); });
+    else if (atTop) window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    else el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    return true;
+  }
+  if (tabsOn) {
+    pager = doc.createElement('nav'); pager.className = 'sheet-pager'; pager.setAttribute('aria-label', 'Previous and next sheet');
+    mainEl.appendChild(pager);
+    tabNav.addEventListener('scroll', stripFade, { passive: true });
+    window.addEventListener('resize', stripFade);
+    doc.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var h = a.getAttribute('href'), el = h.length > 1 ? doc.getElementById(h.slice(1)) : null;
+      if (!tabFor(el)) return;
+      e.preventDefault();
+      if (location.hash !== h && history.pushState) history.pushState(null, '', h);
+      go(h);
+    });
+    window.addEventListener('hashchange', function () { go(location.hash); });
+  }
+
+  /* ------------------------------------------------------------------
      Command line
      ------------------------------------------------------------------ */
   var hist = $('[data-cmd-hist]'), typed = $('[data-cmd-typed]'), form = $('[data-cmd-form]'), input = $('[data-cmd-input]');
@@ -198,7 +285,10 @@ var SITE = {
     log('Command: ' + raw);
     if (COMMANDS[word]) {
       var t = $(COMMANDS[word]);
-      if (t) { t.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' }); log('  Moving to ' + t.getAttribute('data-title') + '.'); }
+      if (t) {
+        if (tabsOn && location.hash !== COMMANDS[word] && history.pushState) history.pushState(null, '', COMMANDS[word]);
+        go(COMMANDS[word]); log('  Moving to ' + t.getAttribute('data-title') + '.');
+      }
     } else if (word === 'HELP' || word === '?') {
       log('  MARINE  PARTS  CAPS  PROCESS  INDUSTRIES  ABOUT  QUOTE');
       log('  GRID  DIMS  LAYERS  CALL');
@@ -432,5 +522,16 @@ var SITE = {
       }, { rootMargin: '900px 0px' });
       vIO.observe(viewerRoot);
     } else startViewer();
+  }
+
+  /* ------------------------------------------------------------------
+     Open the first tab (or the one in the address, e.g. #quote)
+     ------------------------------------------------------------------ */
+  if (tabsOn) {
+    var startEl = location.hash.length > 1 ? doc.getElementById(location.hash.slice(1)) : null;
+    if (tabFor(startEl)) go(location.hash); else go('#top', false);
+    mainEl.classList.add('tabs-on');
+    root.classList.add('tabs-ready');
+    stripFade();
   }
 })();

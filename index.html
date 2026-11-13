@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-<script>document.documentElement.classList.add('js')</script>
+<script>(function(r){r.classList.add('js','js-tabs');setTimeout(function(){if(!r.classList.contains('tabs-ready'))r.classList.remove('js-tabs')},4000)})(document.documentElement)</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -36,8 +36,8 @@
     <a href="#parts">3D parts</a>
     <a href="#capabilities">Capabilities</a>
     <a href="#process">Process</a>
-    <a href="#industries">Industries</a>
     <a href="#about">About</a>
+    <a href="#industries">Industries</a>
   </nav>
   <div class="topbar-cta">
     <a class="top-phone" data-site-phone-link href="tel:+18454730548"><span class="k">Call</span> <span data-site="phone">(845) 473-0548</span></a>
@@ -47,6 +47,16 @@
     </button>
   </div>
 </header>
+
+<!-- ============================ SHEET TABS (used when scripts run) ============================ -->
+<nav class="tabs" aria-label="Drawing sheets" data-tabs>
+  <a href="#top" data-tab="top">Overview</a>
+  <a href="#marine" data-tab="marine">Marine</a>
+  <a href="#parts" data-tab="parts">3D parts</a>
+  <a href="#capabilities" data-tab="capabilities">Capabilities</a>
+  <a href="#about" data-tab="about">About</a>
+  <a href="#quote" data-tab="quote">Quote</a>
+</nav>
 
 <main id="main">
 
@@ -278,9 +288,9 @@
           <button type="button" data-vw-view="right">Right</button>
         </div>
         <div class="vw-btns" role="group" aria-label="Display style">
-          <button type="button" data-vw-mode="hidden" aria-pressed="true">Hidden line</button>
+          <button type="button" data-vw-mode="hidden" aria-pressed="false">Hidden line</button>
           <button type="button" data-vw-mode="wire" aria-pressed="false">Wireframe</button>
-          <button type="button" data-vw-mode="shaded" aria-pressed="false">Shaded</button>
+          <button type="button" data-vw-mode="shaded" aria-pressed="true">Shaded</button>
         </div>
         <div class="vw-btns" role="group" aria-label="Options">
           <button type="button" data-vw-toggle="ortho" aria-pressed="false">Parallel</button>
@@ -291,7 +301,7 @@
 
       <div class="vw-port" data-vw="port" tabindex="0" role="group" aria-roledescription="3D viewer" aria-label="3D view of example parts">
         <canvas aria-hidden="true"></canvas>
-        <div class="vw-label" data-vw="label" aria-hidden="true">[–][SE Isometric][Hidden Line][Perspective]</div>
+        <div class="vw-label" data-vw="label" aria-hidden="true">[–][SE 45°][Shaded w/ Edges][Perspective]</div>
         <div class="vw-cube-wrap">
           <div class="vw-cube" data-vw="cube">
             <button type="button" class="vw-face f-front" data-face="front" aria-label="Front view">Front</button>
@@ -470,10 +480,35 @@
   </div>
 </section>
 
-<!-- ============================ 06 INDUSTRIES ============================ -->
-<section class="sheet industries" id="industries" data-sheet="06" data-dwg="TP-500" data-title="Industries" data-cmd="LIST INDUSTRIES">
+<!-- ============================ 06 ABOUT ============================ -->
+<section class="sheet about" id="about" data-sheet="06" data-dwg="TP-500" data-title="About" data-cmd="PROPERTIES">
+  <div class="about-grid">
+    <div class="about-copy">
+      <p class="eyebrow">Sheet 06 · About</p>
+      <h2>A Poughkeepsie machine shop.</h2>
+      <p>Technical Precision Corp. is a machine shop at <span data-site="street">22 Commerce St.</span> in Poughkeepsie, New York, in Dutchess County.</p>
+      <p>The shop runs three CNC machines for billet work, alongside punching machines, press brakes, welding and a wide-belt sander. A powder coater works in the same building, so a part can go from raw stock to a finished coat in one stop.</p>
+      <p>Marine work leads. Past work also includes parts for IBM and for brewery equipment, scientific equipment, aircraft and cars.</p>
+    </div>
+    <dl class="props" aria-label="Company details">
+      <div><dt>Company</dt><dd>Technical Precision Corp.</dd></div>
+      <div><dt>Address</dt><dd><span data-site="addressLine">22 Commerce St., Poughkeepsie, NY 12603</span></dd></div>
+      <div><dt>County</dt><dd>Dutchess County, New York</dd></div>
+      <div data-site-row="president"><dt>President</dt><dd data-site="president">David Sauter</dd></div>
+      <div><dt>Phone</dt><dd data-site="phone">(845) 473-0548</dd></div>
+      <div><dt>Email</dt><dd data-site="email"><span class="tbd">To be added</span></dd></div>
+      <div><dt>Hours</dt><dd data-site="hours"><span class="tbd">To be added</span></dd></div>
+      <div><dt>Founded</dt><dd data-site="founded"><span class="tbd">To be added</span></dd></div>
+      <div><dt>Equipment</dt><dd>3 CNC machines · punching · press brakes · welding · wide-belt sander</dd></div>
+      <div><dt>Finishing</dt><dd>Powder coating in the same building</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============================ 07 INDUSTRIES ============================ -->
+<section class="sheet industries" id="industries" data-sheet="07" data-dwg="TP-600" data-title="Industries" data-cmd="LIST INDUSTRIES">
   <header class="sheet-head">
-    <p class="eyebrow">Sheet 06 · Industries</p>
+    <p class="eyebrow">Sheet 07 · Industries</p>
     <h2>Boats first. Not boats only.</h2>
     <p class="lede">Marine work leads, but the same machines and the same people make parts for a lot of other trades.</p>
   </header>
@@ -504,31 +539,6 @@
     </li>
   </ul>
   <p class="ind-past">Past work includes parts made for IBM.</p>
-</section>
-
-<!-- ============================ 07 ABOUT ============================ -->
-<section class="sheet about" id="about" data-sheet="07" data-dwg="TP-600" data-title="About" data-cmd="PROPERTIES">
-  <div class="about-grid">
-    <div class="about-copy">
-      <p class="eyebrow">Sheet 07 · About</p>
-      <h2>A Poughkeepsie machine shop.</h2>
-      <p>Technical Precision Corp. is a machine shop at <span data-site="street">22 Commerce St.</span> in Poughkeepsie, New York, in Dutchess County.</p>
-      <p>The shop runs three CNC machines for billet work, alongside punching machines, press brakes, welding and a wide-belt sander. A powder coater works in the same building, so a part can go from raw stock to a finished coat in one stop.</p>
-      <p>Marine work leads. Past work also includes parts for IBM and for brewery equipment, scientific equipment, aircraft and cars.</p>
-    </div>
-    <dl class="props" aria-label="Company details">
-      <div><dt>Company</dt><dd>Technical Precision Corp.</dd></div>
-      <div><dt>Address</dt><dd><span data-site="addressLine">22 Commerce St., Poughkeepsie, NY 12603</span></dd></div>
-      <div><dt>County</dt><dd>Dutchess County, New York</dd></div>
-      <div data-site-row="president"><dt>President</dt><dd data-site="president">David Sauter</dd></div>
-      <div><dt>Phone</dt><dd data-site="phone">(845) 473-0548</dd></div>
-      <div><dt>Email</dt><dd data-site="email"><span class="tbd">To be added</span></dd></div>
-      <div><dt>Hours</dt><dd data-site="hours"><span class="tbd">To be added</span></dd></div>
-      <div><dt>Founded</dt><dd data-site="founded"><span class="tbd">To be added</span></dd></div>
-      <div><dt>Equipment</dt><dd>3 CNC machines · punching · press brakes · welding · wide-belt sander</dd></div>
-      <div><dt>Finishing</dt><dd>Powder coating in the same building</dd></div>
-    </dl>
-  </div>
 </section>
 
 <!-- ============================ 08 QUOTE ============================ -->

@@ -826,7 +826,7 @@
     this.S = makeSolids(T);
     this.models = makeModels(T, this.S);
     this.cache = {};
-    this.mode = 'hidden';
+    this.mode = 'shaded';         // start shaded; Hidden line and Wireframe are a click away
     this.ortho = false;
     this.showDims = true;
     this.spin = !viewer.reduced;
@@ -879,6 +879,10 @@
     [this.mesh, this.edges, this.cosm, this.sil, this.edgesHid, this.silHid, this.dimLines].forEach(function (o) {
       o.frustumCulled = false; self.scene.add(o);
     });
+    // apply the starting style (setMode also relabels the view, which needs a loaded part)
+    this.mesh.material = this.mode === 'hidden' ? this.mats.fill : this.mode === 'wire' ? this.mats.depth : this.mats.shaded;
+    if (this.mode === 'shaded') { this.mats.line.color.copy(this.colors.dark); this.mats.cosm.color.copy(this.colors.dark); }
+    this.port.setAttribute('data-mode', this.mode);
 
     // overlays
     this.cube = this.port.querySelector('[data-vw="cube"]');
@@ -957,11 +961,11 @@
     var s = p.radius;
     this.mats.hid.dashSize = s * 0.035; this.mats.hid.gapSize = s * 0.025;
     this.buildDims(p);
-    var target = { theta: PI / 4, phi: Math.acos(1 / Math.sqrt(3)), radius: this.fitRadius(p) };
+    var target = { theta: VIEWS.start.theta, phi: VIEWS.start.phi, radius: this.fitRadius(p) };
     if (animate && !this.v.reduced) this.animateTo(target);
     else { this.st.theta = target.theta; this.st.phi = target.phi; this.st.radius = target.radius; }
     this.st.target.set(0, 0, 0);
-    this.setViewName('SE Isometric');
+    this.setViewName(VIEWS.start.name);
     this.kick();
     return p.stats;
   };
@@ -1082,7 +1086,9 @@
     left: { theta: -PI / 2, phi: PI / 2, name: 'Left' },
     top: { theta: 0, phi: 0.0006, name: 'Top' },
     bottom: { theta: 0, phi: PI - 0.0006, name: 'Bottom' },
-    iso: { theta: PI / 4, phi: Math.acos(1 / Math.sqrt(3)), name: 'SE Isometric' }
+    iso: { theta: PI / 4, phi: Math.acos(1 / Math.sqrt(3)), name: 'SE Isometric' },
+    // starting view: from the south-east corner, looking down at 45 degrees
+    start: { theta: PI / 4, phi: PI / 4, name: 'SE 45°' }
   };
 
   GL.prototype.view = function (key) {
@@ -1268,7 +1274,7 @@
       self.st.radius *= Math.exp(e.deltaY * 0.0012);
       self.kick();
     }, { passive: false });
-    port.addEventListener('dblclick', function () { self.view('iso'); });
+    port.addEventListener('dblclick', function () { self.view('start'); });
     port.addEventListener('keydown', function (e) {
       var k = e.key, st = self.st, used = true;
       if (k === 'ArrowLeft') st.theta += 0.12;
