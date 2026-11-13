@@ -24,9 +24,9 @@ var SITE = {
   county: 'Dutchess County',
   phone: '(845) 473-0548',   // confirmed by the owner, 2026-11-13; shown as-is, digits used for the call link
   email: 'dave@technicalprecisioncorp.com', // from the owner, 2026-11-13; quote requests are emailed here
-  // Quote requests are delivered by FormSubmit (free form-to-email service). The first request after a change of
-  // address sends Dave an 'Activate form' email; requests arrive once he clicks it. null = mail-app only.
-  formEndpoint: 'https://formsubmit.co/ajax/dave@technicalprecisioncorp.com',
+  // Quote requests go to the owner's private form relay (Cloudflare worker "site-forms"), which emails them from
+  // forms@tepco.us.com to the shop. Recipient addresses are kept in the relay, not here.
+  formEndpoint: 'https://site-forms.jake-sauter3.workers.dev/send?site=tepco',
   hours: null,               // TO BE ADDED, e.g. 'Mon–Fri 7:00–3:30'
   founded: null,             // TO BE ADDED, e.g. '1985'
   president: 'David Sauter', // set to null to hide
@@ -502,7 +502,6 @@ var SITE = {
     var email = F.email.value.trim();
     var data = {
       _subject: 'Quote request: ' + (F.part.value.trim().split('\n')[0].slice(0, 60) || 'part') + ' (' + F.name.value.trim() + ')',
-      _template: 'table', _captcha: 'false',
       'Name': F.name.value.trim(), 'Reply by email': email || '(none given)', 'Reply by phone': F.phone.value.trim() || '(none given)',
       'Company or boat': F.company.value.trim(), 'Industry': F.industry.value, 'Part': F.part.value.trim(),
       'Material': F.material.value.trim(), 'Quantity': F.qty.value.trim(), 'Needed by': F.date.value,
