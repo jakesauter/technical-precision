@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Outdoor fire & firewood | Technical Precision Corp.</title>
+<meta name="description" content="Fire pits, a rocket stove, a fire pit grill, an outdoor fireplace and firewood racks, cut and welded from heavy steel by Technical Precision in Poughkeepsie, NY. Made to order, local delivery.">
+<meta name="theme-color" content="#0f3b7c">
+<meta property="og:title" content="Outdoor fire & firewood, made in Poughkeepsie">
+<meta property="og:image" content="https://tepco.us.com/outdoor/img/fire-pit.png">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<style>
+@font-face { font-family: "Barlow"; src: url(../fonts/barlow-400-latin.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Barlow"; src: url(../fonts/barlow-600-latin.woff2) format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Barlow Condensed"; src: url(../fonts/barlow-condensed-700-latin.woff2) format("woff2"); font-weight: 700; font-display: swap; }
+:root { --bp: #0f3b7c; --ink: #071c40; --line: #eaf2ff; --muted: #b3caec; --frame: rgba(234,242,255,.3); --red: #ff9a82; --cyan: #80d8ff;
+  --g: clamp(16px, 4vw, 56px); color-scheme: dark; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bp); color: var(--line); font: 17px/1.55 "Barlow", system-ui, sans-serif;
+  background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 24px 24px; }
+a { color: var(--cyan); }
+.top { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 14px; padding: 10px var(--g); background: rgba(11,47,102,.92);
+  border-bottom: 1px solid var(--frame); backdrop-filter: blur(6px); }
+.top a.home { color: var(--line); text-decoration: none; font: 700 20px "Barlow Condensed", sans-serif; letter-spacing: .5px; }
+.top .sp { flex: 1; } .top .ph { color: var(--muted); text-decoration: none; }
+.btn { display: inline-block; background: var(--red); color: var(--ink); font-weight: 600; text-decoration: none; padding: 11px 18px; border-radius: 4px; border: 0; font-size: 16px; cursor: pointer; }
+main { max-width: 1180px; margin: 0 auto; padding: 0 var(--g) 60px; }
+h1, h2, h3 { font-family: "Barlow Condensed", sans-serif; font-weight: 700; letter-spacing: .3px; line-height: 1.05; }
+h1 { font-size: clamp(42px, 8vw, 84px); margin: 46px 0 10px; }
+h2 { font-size: clamp(32px, 5vw, 50px); margin: 4px 0 8px; } h2 .price { color: var(--red); font-size: .7em; margin-left: 8px; }
+h3 { font-size: 26px; margin: 18px 0 6px; }
+.eyebrow { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 13px; margin: 0; }
+.lede { color: var(--muted); font-size: 19px; max-width: 760px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 26px 0 10px; }
+.card { display: flex; flex-direction: column; gap: 4px; background: rgba(7,28,64,.55); border: 1px solid var(--frame); border-radius: 6px; padding: 10px 12px 14px;
+  color: var(--line); text-decoration: none; }
+.card img { width: 100%; height: auto; border-radius: 4px; background: #f6f6f6; margin-bottom: 6px; }
+.card .kind { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; } .card b { font: 700 24px "Barlow Condensed", sans-serif; }
+.card .price { color: var(--red); font-weight: 600; font-size: 19px; margin-top: auto; }
+.prod { border-top: 1px dashed var(--frame); padding: 40px 0 10px; scroll-margin-top: 60px; }
+.grid2 { display: grid; grid-template-columns: 1.25fr 1fr; gap: 26px; align-items: start; }
+.dwg { margin: 0; border: 1px solid var(--frame); border-radius: 4px; overflow: hidden; } .dwg img { display: block; width: 100%; height: auto; }
+.dwg figcaption { color: var(--muted); font-size: 13px; padding: 6px 10px; }
+.render { width: 100%; height: auto; border-radius: 4px; background: #f6f6f6; }
+.specs { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 15.5px; }
+.specs th { text-align: left; color: var(--muted); font-weight: 400; padding: 5px 10px 5px 0; vertical-align: top; width: 34%; }
+.specs td { padding: 5px 0; border-bottom: 1px solid var(--frame); }
+.note { color: var(--muted); font-size: 14.5px; }
+.steps, .feats { padding-left: 20px; } .steps li, .feats li { margin: 5px 0; }
+.wood { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.wood div { border: 1px solid var(--frame); border-radius: 6px; padding: 14px; background: rgba(7,28,64,.45); }
+.wood b { font: 700 22px "Barlow Condensed", sans-serif; display: block; }
+form { display: grid; gap: 12px; max-width: 720px; } label { display: grid; gap: 4px; color: var(--muted); font-size: 15px; }
+input, select, textarea { font: inherit; color: var(--line); background: rgba(7,28,64,.7); border: 1px solid var(--frame); border-radius: 4px; padding: 10px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; } .honey { position: absolute; left: -9999px; }
+.msg { min-height: 22px; } footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--frame); padding: 20px var(--g); text-align: center; }
+@media (max-width: 760px) { .grid2, .row { grid-template-columns: 1fr; } .top .ph { display: none; } }
+</style></head>
+<body>
+<header class="top"><a class="home" href="../">TECHNICAL PRECISION</a><span class="sp"></span><a class="ph" href="tel:+18454730548">(845) 473-0548</a>
+<a class="btn" href="#order">Order</a></header>
+<main>
+<p class="eyebrow" style="margin-top:34px">New · Outdoor fire &amp; firewood</p>
+<h1>Steel for the fire,<br>made in Poughkeepsie.</h1>
+<p class="lede">Fire pits, a rocket stove, a fire pit grill, an outdoor fireplace and firewood racks, cut on our laser and welded in our shop from
+heavy plate, not the thin stuff from the big stores. Every piece is made to order. We deliver around Poughkeepsie in the shop truck.</p>
+<div class="cards"><a class="card" href="#rocket-stove"><img src="img/rocket-stove.png" alt="TP Rocket Stove" loading="lazy" width="1000" height="750">
+<span class="kind">Cooking · RS-1</span><b>TP Rocket Stove</b><span>Cook a full meal on a handful of sticks.</span><span class="price">$169</span></a><a class="card" href="#fire-pit"><img src="img/fire-pit.png" alt="Pine &amp; Moon Fire Pit" loading="lazy" width="1000" height="750">
+<span class="kind">Fire pit · FP-30</span><b>Pine &amp; Moon Fire Pit</b><span>Four panels, no tools, a fire to sit around.</span><span class="price">$299</span></a><a class="card" href="#fire-pit-grill"><img src="img/fire-pit-grill.png" alt="Backyard Fire Pit Grill" loading="lazy" width="1000" height="750">
+<span class="kind">Grill · FG-28</span><b>Backyard Fire Pit Grill</b><span>A fire pit you can grill on: steaks at the right height.</span><span class="price">$449</span></a><a class="card" href="#outdoor-fireplace"><img src="img/outdoor-fireplace.png" alt="Pine Ridge Outdoor Fireplace" loading="lazy" width="1000" height="750">
+<span class="kind">Outdoor fireplace · OF-36</span><b>Pine Ridge Outdoor Fireplace</b><span>Sit in front of it: the heat comes back to you, the wind doesn&#x27;t.</span><span class="price">$399</span></a><a class="card" href="#firewood-rack"><img src="img/firewood-rack.png" alt="Heavy Firewood Rack" loading="lazy" width="1000" height="750">
+<span class="kind">Firewood · WR-4</span><b>Heavy Firewood Rack</b><span>Keeps a stack of firewood off the wet ground.</span><span class="price">$249</span></a><a class="card" href="#log-holder"><img src="img/log-holder.png" alt="Hearth Log Holder" loading="lazy" width="1000" height="750">
+<span class="kind">Firewood · LH-1</span><b>Hearth Log Holder</b><span>Firewood by the fireplace or the door, looking sharp.</span><span class="price">$149</span></a></div>
+
+<section class="prod" id="rocket-stove">
+  <p class="eyebrow">Sheet 01 · Cooking · DWG TP-RS-1-100</p>
+  <h2>TP Rocket Stove <span class="price">$169</span></h2>
+  <p class="lede">A heavy 4&quot; rocket stove for camp and backyard cooking: an L-shaped burn chamber that pulls air hard, a removable fuel shelf, a slot-together pot support and a spring handle.</p>
+  <div class="grid2">
+    <figure class="dwg"><img src="dwg/rocket-stove.svg" alt="Dimensioned drawing of the TP Rocket Stove" loading="lazy"><figcaption>Front, right and top views, inches. Original Technical Precision design.</figcaption></figure>
+    <div><img class="render" src="img/rocket-stove.png" alt="" loading="lazy" width="1000" height="750">
+      <table class="specs"><tr><th>Size</th><td>15&quot; L x 14&quot; W x 22-1/2&quot; H</td></tr><tr><th>Burner</th><td>4&quot; x 4&quot; x 11 ga tube</td></tr><tr><th>Pot support</th><td>fits 6&quot;–14&quot; pans</td></tr><tr><th>Fuel</th><td>sticks, twigs, scrap wood</td></tr><tr><th>Finish</th><td>2000 °F flat black</td></tr><tr><th>Weight</th><td>about 25 lb</td></tr></table>
+      <p class="note">Founding price $149 for the first 10. Made to order: about 1–2 weeks.</p>
+      <a class="btn" href="#order" data-product="TP Rocket Stove">Order or ask about this one</a></div>
+  </div>
+  <div class="grid2">
+    <div><h3>How we make it</h3><ol class="steps"><li>Saw: two 4&quot; tubes, 45° miters</li><li>Laser: legs, pot support, fuel shelf</li><li>Press brake: shelf channel</li><li>MIG: elbow seam, legs, handle</li><li>High-heat paint + test burn</li></ol></div>
+    <div><h3>Why it's built this way</h3><ul class="feats"><li>L-shaped burn chamber: strong draft, little smoke</li><li>Removable fuel shelf: air under the wood, easy to clean</li><li>Slot-together pot support: no rattle, lifts off to pack</li><li>Heavy 11 ga tube and 3/16&quot; legs: built to last</li><li>Spring handle sheds heat (use a glove when it&#x27;s hot)</li><li>Heavy-duty option: 3/16&quot; wall tube for years of daily use (+$40)</li></ul></div>
+  </div>
+</section>
+<section class="prod" id="fire-pit">
+  <p class="eyebrow">Sheet 02 · Fire pit · DWG TP-FP-30-100</p>
+  <h2>Pine &amp; Moon Fire Pit <span class="price">$299</span></h2>
+  <p class="lede">A 30&quot; square fire pit cut from heavy 3/16&quot; steel: pine trees, stars and a moon glow when the fire is lit. The four panels slot together by hand and pack flat for camping.</p>
+  <div class="grid2">
+    <figure class="dwg"><img src="dwg/fire-pit.svg" alt="Dimensioned drawing of the Pine &amp; Moon Fire Pit" loading="lazy"><figcaption>Front, right and top views, inches. Original Technical Precision design.</figcaption></figure>
+    <div><img class="render" src="img/fire-pit.png" alt="" loading="lazy" width="1000" height="750">
+      <table class="specs"><tr><th>Size</th><td>30&quot; x 30&quot; x 16&quot; H</td></tr><tr><th>Steel</th><td>3/16&quot; plate (about 3x thicker than store pits)</td></tr><tr><th>Fire area</th><td>27&quot; x 27&quot;</td></tr><tr><th>Assembly</th><td>4 panels, no tools</td></tr><tr><th>Custom</th><td>family name or house number cutout, +$60</td></tr><tr><th>Weight</th><td>about 81 lb</td></tr></table>
+      <p class="note">Custom name panel +$60. Made to order: about 1–2 weeks.</p>
+      <a class="btn" href="#order" data-product="Pine &amp; Moon Fire Pit">Order or ask about this one</a></div>
+  </div>
+  <div class="grid2">
+    <div><h3>How we make it</h3><ol class="steps"><li>Laser: 4 panels from 3/16&quot; plate</li><li>Deburr every edge</li><li>Dry fit: slot together</li><li>Optional high-heat paint</li><li>Pack flat</li></ol></div>
+    <div><h3>Why it's built this way</h3><ul class="feats"><li>3/16&quot; steel: won&#x27;t warp or burn through like thin store pits</li><li>No tools, no bolts: slots together in 1 minute</li><li>Packs flat for camping</li><li>Glowing pine-forest, moon and star cutouts</li><li>Add your family name (custom panel)</li></ul></div>
+  </div>
+</section>
+<section class="prod" id="fire-pit-grill">
+  <p class="eyebrow">Sheet 03 · Grill · DWG TP-FG-28-100</p>
+  <h2>Backyard Fire Pit Grill <span class="price">$449</span></h2>
+  <p class="lede">A 24&quot; steel firebox at grilling height with a heavy grate that sits at two heights (sear or slow), a lower shelf for wood, and ash holes so it drains and breathes.</p>
+  <div class="grid2">
+    <figure class="dwg"><img src="dwg/fire-pit-grill.svg" alt="Dimensioned drawing of the Backyard Fire Pit Grill" loading="lazy"><figcaption>Front, right and top views, inches. Original Technical Precision design.</figcaption></figure>
+    <div><img class="render" src="img/fire-pit-grill.png" alt="" loading="lazy" width="1000" height="750">
+      <table class="specs"><tr><th>Size</th><td>24&quot; x 24&quot; firebox, 30&quot; tall</td></tr><tr><th>Grate</th><td>23&quot; square, 2 heights</td></tr><tr><th>Steel</th><td>11 ga box, 3/16&quot; angle legs</td></tr><tr><th>Shelf</th><td>24&quot; x 24&quot; wood shelf</td></tr><tr><th>Fuel</th><td>wood or charcoal</td></tr><tr><th>Weight</th><td>about 98 lb</td></tr></table>
+      <p class="note">Delivered within 25 miles of Poughkeepsie. Made to order: about 1–2 weeks.</p>
+      <a class="btn" href="#order" data-product="Backyard Fire Pit Grill">Order or ask about this one</a></div>
+  </div>
+  <div class="grid2">
+    <div><h3>How we make it</h3><ol class="steps"><li>Laser: U-wrap, end panels, shelf</li><li>Press brake: 2 straight bends</li><li>Saw: legs, clips, grate frame</li><li>MIG: corners, legs, shelf, clips, grate</li><li>High-heat paint + test fire</li></ol></div>
+    <div><h3>Why it's built this way</h3><ul class="feats"><li>Grilling height (30&quot;) with a fire you can still sit around</li><li>Grate at 2 heights: sear or slow-cook</li><li>Ash holes + side air holes: burns clean, drains rain</li><li>Wood shelf underneath</li><li>Heavy 11 ga firebox with lift handles</li></ul></div>
+  </div>
+</section>
+<section class="prod" id="outdoor-fireplace">
+  <p class="eyebrow">Sheet 04 · Outdoor fireplace · DWG TP-OF-36-100</p>
+  <h2>Pine Ridge Outdoor Fireplace <span class="price">$399</span></h2>
+  <p class="lede">A freestanding steel fire back with angled wings. It reflects the fire&#x27;s heat toward your chairs, blocks the wind, and lights up with a pine ridge and moon. Comes with a heavy log grate.</p>
+  <div class="grid2">
+    <figure class="dwg"><img src="dwg/outdoor-fireplace.svg" alt="Dimensioned drawing of the Pine Ridge Outdoor Fireplace" loading="lazy"><figcaption>Front, right and top views, inches. Original Technical Precision design.</figcaption></figure>
+    <div><img class="render" src="img/outdoor-fireplace.png" alt="" loading="lazy" width="1000" height="750">
+      <table class="specs"><tr><th>Size</th><td>53&quot; wide x 30&quot; tall x 22&quot; deep</td></tr><tr><th>Steel</th><td>11 ga body, 3/16&quot; stands</td></tr><tr><th>Grate</th><td>30&quot; x 14&quot;, 3/8&quot; bars</td></tr><tr><th>Use</th><td>on dirt, gravel or pavers</td></tr><tr><th>Pairs with</th><td>Fire Pit for a full setup</td></tr><tr><th>Weight</th><td>about 84 lb</td></tr></table>
+      <p class="note">Delivered within 25 miles of Poughkeepsie. Made to order: about 1–2 weeks.</p>
+      <a class="btn" href="#order" data-product="Pine Ridge Outdoor Fireplace">Order or ask about this one</a></div>
+  </div>
+  <div class="grid2">
+    <div><h3>How we make it</h3><ol class="steps"><li>Laser: fire back blank, stands, grate sides</li><li>Press brake: two 45° bends</li><li>MIG: kickstands, log grate</li><li>High-heat paint + test fire</li></ol></div>
+    <div><h3>Why it's built this way</h3><ul class="feats"><li>Throws heat toward you, blocks wind and smoke drift</li><li>Pine ridge and moon glow at night</li><li>Heavy log grate keeps the fire breathing</li><li>Stands on its own, no anchoring</li><li>Great backdrop for photos and parties</li></ul></div>
+  </div>
+</section>
+<section class="prod" id="firewood-rack">
+  <p class="eyebrow">Sheet 05 · Firewood · DWG TP-WR-4-100</p>
+  <h2>Heavy Firewood Rack <span class="price">$249</span></h2>
+  <p class="lede">A welded 1-1/2&quot; steel firewood rack, 4 ft long, with a kindling deck on top, sealed tubes and a powder-coat finish. Custom lengths and a roof are available.</p>
+  <div class="grid2">
+    <figure class="dwg"><img src="dwg/firewood-rack.svg" alt="Dimensioned drawing of the Heavy Firewood Rack" loading="lazy"><figcaption>Front, right and top views, inches. Original Technical Precision design.</figcaption></figure>
+    <div><img class="render" src="img/firewood-rack.png" alt="" loading="lazy" width="1000" height="750">
+      <table class="specs"><tr><th>Size</th><td>48&quot; L x 16&quot; D x 46&quot; H</td></tr><tr><th>Holds</th><td>about 0.4 face cord (45&quot; x 41&quot; of 16&quot; logs)</td></tr><tr><th>Steel</th><td>1-1/2&quot; x 14 ga tube, welded</td></tr><tr><th>Finish</th><td>powder coat (any color)</td></tr><tr><th>Options</th><td>8 ft length, roof, custom size</td></tr><tr><th>Weight</th><td>about 70 lb</td></tr></table>
+      <p class="note">8 ft: $349 · roof +$90 · delivered and placed. Made to order: about 1–2 weeks.</p>
+      <a class="btn" href="#order" data-product="Heavy Firewood Rack">Order or ask about this one</a></div>
+  </div>
+  <div class="grid2">
+    <div><h3>How we make it</h3><ol class="steps"><li>Saw: 13 tube pieces</li><li>Laser: feet and caps</li><li>MIG on a fixture table</li><li>Powder coat</li></ol></div>
+    <div><h3>Why it's built this way</h3><ul class="feats"><li>Welded heavy tube: no wobbly bolt-together kit</li><li>Holds about 0.4 face cord off the wet ground</li><li>Kindling deck on top</li><li>Capped tops and weep holes: no rust or freeze splits from the inside</li><li>Custom sizes for your porch or garage, local delivery</li></ul></div>
+  </div>
+</section>
+<section class="prod" id="log-holder">
+  <p class="eyebrow">Sheet 06 · Firewood · DWG TP-LH-1-100</p>
+  <h2>Hearth Log Holder <span class="price">$149</span></h2>
+  <p class="lede">A 24&quot; log holder with pine-tree end plates in 3/16&quot; steel and 1/2&quot; bar rails, powder coated. A great gift: add initials instead of the tree.</p>
+  <div class="grid2">
+    <figure class="dwg"><img src="dwg/log-holder.svg" alt="Dimensioned drawing of the Hearth Log Holder" loading="lazy"><figcaption>Front, right and top views, inches. Original Technical Precision design.</figcaption></figure>
+    <div><img class="render" src="img/log-holder.png" alt="" loading="lazy" width="1000" height="750">
+      <table class="specs"><tr><th>Size</th><td>24-3/8&quot; L x 16&quot; W x 15&quot; H</td></tr><tr><th>Steel</th><td>3/16&quot; plate ends, 1/2&quot; bar rails</td></tr><tr><th>Holds</th><td>about 15–20 split logs</td></tr><tr><th>Finish</th><td>powder coat</td></tr><tr><th>Custom</th><td>initials or a house name instead of the tree, +$30</td></tr><tr><th>Weight</th><td>about 26 lb</td></tr></table>
+      <p class="note">Custom initials +$30. Made to order: about 1–2 weeks.</p>
+      <a class="btn" href="#order" data-product="Hearth Log Holder">Order or ask about this one</a></div>
+  </div>
+  <div class="grid2">
+    <div><h3>How we make it</h3><ol class="steps"><li>Laser: 2 end plates with locating holes</li><li>Saw: 4 rails</li><li>MIG: rails through the holes, ground flush</li><li>Powder coat</li></ol></div>
+    <div><h3>Why it's built this way</h3><ul class="feats"><li>Heavy 3/16&quot; steel ends with a pine-tree cutout</li><li>Holds a couple of nights of wood</li><li>Felt feet for indoor floors</li><li>Custom initials make it a gift</li><li>Matches the Pine &amp; Moon Fire Pit</li></ul></div>
+  </div>
+</section>
+<section class="prod" id="firewood">
+  <p class="eyebrow">Sheet 07 · Firewood</p><h2>Firewood storage &amp; delivery</h2>
+  <p class="lede">Winter's coming. The racks and holders above come in any size, and we'll bring them to you.</p>
+  <div class="wood">
+    <div><b>Custom firewood racks</b>Any length (4, 8, 12 ft), with or without a roof or kindling deck, sized to your porch, garage or side yard. Welded, powder coated in any color.</div>
+    <div><b>Log holders</b>For the hearth or the front door, with a pine tree or your initials cut in the ends. A good gift.</div>
+    <div><b>Delivered and placed</b>Free delivery within 25 miles of the shop on racks, grills and fireplaces. We carry it where you want it.</div>
+    <div><b>Firewood itself?</b>We're asking who wants local seasoned firewood delivered. New York only allows untreated firewood within 50 miles of where it was cut, so it would be local wood only. Tell us in the form.</div>
+  </div>
+</section>
+<section class="prod" id="order">
+  <p class="eyebrow">Sheet 08 · Order</p><h2>Order or ask a question</h2>
+  <p class="lede">Tell us what you'd like. We'll reply with the price, the timing and the delivery, usually the same day. Nothing is charged until it's built.</p>
+  <form id="f" autocomplete="on">
+    <div class="row"><label>Name *<input name="name" required autocomplete="name"></label><label>Phone<input name="phone" type="tel" autocomplete="tel"></label></div>
+    <label>Email<input name="email" type="email" autocomplete="email"></label>
+    <label>Product<select name="product"><option>TP Rocket Stove ($169)</option><option>Pine &amp; Moon Fire Pit ($299)</option><option>Backyard Fire Pit Grill ($449)</option><option>Pine Ridge Outdoor Fireplace ($399)</option><option>Heavy Firewood Rack ($249)</option><option>Hearth Log Holder ($149)</option><option>Custom firewood rack</option><option>Local seasoned firewood (asking interest)</option><option>Something else</option></select></label>
+    <label>Options or custom size<input name="options" placeholder="e.g. 8 ft rack with roof · family name on the fire pit"></label>
+    <label>Delivery town<input name="town" placeholder="Poughkeepsie, Wappingers Falls, Hyde Park…"></label>
+    <label>Anything else<textarea name="message" rows="3"></textarea></label>
+    <label class="honey" aria-hidden="true">Leave empty<input name="_honey" tabindex="-1" autocomplete="off"></label>
+    <div><button class="btn" type="submit">Send</button></div><div class="msg" id="m" role="status"></div>
+  </form>
+</section>
+<p class="note">Fire products are for outdoor use on dirt, gravel or pavers, 10 ft from buildings. Never on a wooden deck. Steel gets very hot.</p>
+</main>
+<footer>Technical Precision Corp. · 22 Commerce St, Poughkeepsie, NY · <a href="tel:+18454730548">(845) 473-0548</a> · <a href="../">Machine shop home</a></footer>
+<script>
+document.querySelectorAll('[data-product]').forEach(a => a.addEventListener('click', () => {
+  const s = document.querySelector('select[name=product]'); [...s.options].forEach(o => { if (o.text.startsWith(a.dataset.product)) s.value = o.value; });
+}));
+document.getElementById('f').addEventListener('submit', async e => {
+  e.preventDefault(); const m = document.getElementById('m'), f = e.target, b = f.querySelector('button');
+  const d = Object.fromEntries(new FormData(f)); d._replyto = d.email || ''; d._subject = 'Outdoor order: ' + d.product + ' (' + d.name + ')';
+  b.disabled = true; m.textContent = 'Sending…';
+  try {
+    const r = await fetch('https://site-forms.jake-sauter3.workers.dev/send?site=tepco', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) });
+    const j = await r.json(); if (!j.success) throw 0;
+    m.textContent = 'Thanks! We got it and will call or email you soon.'; f.reset();
+  } catch (_) { m.textContent = 'That did not go through. Please call (845) 473-0548.'; }
+  b.disabled = false;
+});
+</script>
+</body></html>
